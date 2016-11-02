@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by test on 3/11/2016.
+ * Created by architdate on 3/11/2016.
  */
 
 public class FastAlgorithm {
@@ -23,17 +23,26 @@ public class FastAlgorithm {
 
         HashMap<String, double[]> data = MapData.generateCostTimeMap();
 
-        ArrayList<String> path = new ArrayList<String>();
+        ArrayList<String> path = new ArrayList<String>(); 
         String places = "";
-        for (String i : location) {
+        for (String i : location) {                          //standard encoding using codes dictionary
             places = places + codes.get(i);
         }
 
-        int pointer = 0;
-        int placeNumber = places.length();
-        String minSubpath = "";
+        int index = 0;
+        int len = places.length(); //original length of places to go to 
+        String minSubpath = "";  //the quickly calculated path
 
-        for (int j = 0; j < placeNumber; j++) {
+        /*
+        This code below finds out the shortest path using the following algorithm.
+        Starting from the origin, it checks for the least time it can take to walk to any of the planned destinations
+        Then once the end point is found, it will remove the origin from the places string
+        The new origin will then be the endpoint that we previously found.
+        This process will be repeated till every single destination is covered
+        We can then apply the result function from MyClass.java to find out our solution
+        */
+
+        for (int j = 0; j < len; j++) {
             int minimumTime = Integer.MAX_VALUE;
             String a;
             for (int i = 0; i < places.length(); i++) {
@@ -46,16 +55,17 @@ public class FastAlgorithm {
                 if (parseTime < minimumTime) {
                     minimumTime = parseTime;
                     minSubpath = a;
-                    pointer = i;
+                    index = i;
                 }
             }
             path.add(minSubpath);
-            places = places.substring(0, pointer) + places.substring(pointer + 1);
+            places = places.substring(0, index) + places.substring(index + 1);
         }
-        path.add(String.valueOf(path.get(placeNumber - 1).charAt(1)) + "a");
+        path.add(String.valueOf(path.get(len - 1).charAt(1)) + "a");
         ArrayList<ArrayList<String>> ans = new ArrayList<ArrayList<String>>();
         ans.add(path);
 
+        //pass the below answer as the path argument in the result function.
         return ans;
     }
 }
