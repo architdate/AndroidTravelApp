@@ -15,10 +15,14 @@ public class MyClass {
         places[0]="Vivo City";
         places[1]="Zoo";
         places[2]="Botanic Gardens";
-//        System.out.println(encodePlaces(places));
+        System.out.println(FastAlgorithm.fastPath(places));
+        System.out.println(encodePlaces(places));
 //        System.out.println(possiblePaths(encodePlaces(places)));
         ArrayList<ArrayList<String>> route = possiblePaths(encodePlaces(places));
+        System.out.println("/////////// slow algo //////////////");
         System.out.println(convertResultToString(result(route,30)));
+        System.out.println("//////////// fast algo /////////////");
+        System.out.println(convertResultToString(result(FastAlgorithm.fastPath(places),30)));
 
     }
     public static ArrayList<String> encodePlaces(String[] location) {   //encode the places in the form of letters
@@ -83,7 +87,7 @@ public class MyClass {
     }
 
     public static String[][] result(ArrayList<ArrayList<String>> ans, double budget) {
-        HashMap<String,double[]> data = MapData.createData();
+        HashMap<String,double[]> data = MapData.generateCostTimeMap();
         ArrayList<String> transport = new ArrayList<String>();
         ArrayList<Integer> minimumTime = new ArrayList<Integer>();
         ArrayList<Double> minimumCost = new ArrayList<Double>();

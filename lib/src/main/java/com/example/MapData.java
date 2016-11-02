@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class MapData {
 
     // create a hashmap of the time and cost of all transport modes of all possible routes
-    public static HashMap<String, double[]> createData() {
+    public static HashMap<String, double[]> generateCostTimeMap() {
         HashMap<String, double[]> data = new HashMap<String, double[]> ();
 
         /**
